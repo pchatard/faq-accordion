@@ -25,8 +25,9 @@ body {
 	box-sizing: border-box;
 	font-size: 1.8rem;
 	height: 100vh;
-	overflow: hidden;
 	background: linear-gradient(var(--background-start), var(--background-end));
+	background-size: 100%;
+	background-repeat: no-repeat;
 	position: relative;
 	font-family: "Bai Jamjuree", sans-serif;
 }
@@ -41,33 +42,42 @@ main.container {
 	/* Style the container */
 	width: fit-content;
 	background-color: white;
-    border-radius: 20px;
-    width: 70%;
+	border-radius: 20px;
+	width: 70%;
 	display: flex;
-    align-items: center;
-    box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
+	align-items: center;
+	box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
 }
 
 .images {
 	flex: 1 1 40%;
 	align-self: stretch;
-	background: url("../images/bg-pattern-desktop.svg"),
-		url("../images/illustration-woman-online-desktop.svg");
+	background: url("../images/bg-pattern-desktop.svg");
 	background-repeat: no-repeat;
-	background-size: 100%;
-	background-position-x: -6rem;
-	background-position-y: center;
+	background-size: 200%;
+	background-position: 100% 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	overflow: hidden;
+}
+
+#woman-desktop {
+	width: 120%;
+	height: auto;
+	position: relative;
+	left: -20%;
 }
 
 #box {
-	position: relative;
+	position: absolute;
+	top: 43%;
 	max-width: 100%;
 	height: auto;
-	top: 20rem;
-	left: -9.4rem;
+	transform: translateX(-50%);
 }
 
-#woman {
+#woman-mobile {
 	display: none;
 }
 
@@ -93,8 +103,8 @@ main.container {
 	border-bottom: 1px solid var(--grayish-blue);
 }
 
-section.active h2 {
-	font-weight: 600;
+section input[type="radio"] {
+	display: none;
 }
 
 section .question__header {
@@ -116,13 +126,9 @@ h2.question__header__title:hover {
 }
 
 .question__header__icon {
+	cursor: pointer;
 	color: orange;
 	transition: all 0.2s;
-}
-
-section.active .question__header__icon {
-	color: orange;
-	transform: rotate(180deg);
 }
 
 .question p {
@@ -131,51 +137,72 @@ section.active .question__header__icon {
 	transition: all 0.2s;
 }
 
-.active p {
+section input[type="radio"]:checked ~ p {
 	padding: 1rem 0;
 	max-height: 10rem;
 	opacity: 1;
 }
 
+section input[type="radio"]:checked ~ label h2 {
+	font-weight: 600;
+}
+
+section input[type="radio"]:checked ~ label .question__header__icon {
+	color: orange;
+	transform: rotate(180deg);
+}
+
 footer.attribution {
 	position: fixed;
+	width: 100%;
+	text-align: center;
 	bottom: 0;
+}
+
+footer.attribution a {
+	color: blue;
+	text-decoration: none;
 }
 
 @media (max-width: 900px) {
 	html {
-		font-size: 50%;
+		font-size: 55%;
 	}
 
 	main.container {
 		flex-direction: column;
-		width: 90%;
+		width: 80%;
 	}
 
 	.images {
-		align-self: stretch;
+		overflow: visible;
+		justify-self: flex-start;
 		background: url("../images/bg-pattern-mobile.svg");
 		background-repeat: no-repeat;
-		background-size: 50%;
+		background-size: 70%;
 		background-position-x: center;
-		background-position-y: center;
+		flex-direction: row;
 	}
 
-	#woman {
+	#woman-desktop {
+		display: none;
+	}
+
+	#woman-mobile {
 		display: initial;
-		width: 60%;
+		width: 75%;
 		position: relative;
-		bottom: 10rem;
-		left: 12rem;
+		transform: translateY(-50%) translateX(-5%);
 	}
 
 	#box {
 		display: none;
-    }
+	}
 
 	.faq {
-        width: 100%;
-        padding-top: 0;
+		margin-top: -20%;
+		width: 100%;
+		padding-top: 0;
 	}
 
 	#faq__title {
@@ -194,6 +221,6 @@ footer.attribution {
 	}
 
 	#faq__questions li {
-		padding: 1rem 0;
+		padding: 2rem 0;
 	}
 }
